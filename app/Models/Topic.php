@@ -26,13 +26,21 @@ class Topic extends Model
                 $query->recentReplied();
                 break;
         }
-        return $query->with('user','category');
+        return $query->with('user', 'category');
     }
-    public function scopeRecentReplied($query){
-        return $query->orderBy('updated_at','desc');
+
+    public function scopeRecentReplied($query)
+    {
+        return $query->orderBy('updated_at', 'desc');
     }
+
     public function scopeRecent($query)
     {
-        return $query->orderBy('created_at','desc');
+        return $query->orderBy('created_at', 'desc');
+    }
+
+    public function link($params = [])
+    {
+        return route('topics.show',array_merge([$this->id,$this->slug],$params));
     }
 }
