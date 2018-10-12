@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
     use HasRoles;
@@ -57,9 +58,22 @@ class User extends Authenticatable
 
     public function markAsRead()
     {
-        $this->notification_count =0;
+        $this->notification_count = 0;
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
 
+    public function setPasswordAttribute($value)
+    {
+        if(strlen($value)!=60) {
+            $value = bcrypt($value);
+        }
+        $this->attributes['password']=$value;
+    }
+    public function setAvatarAttribute($path){
+        if(starts_with($path,'http')){
+            $path = config('app.url')."/uploads/images/avatars/$path";
+        }
+        $this->attributes['avatar']=$path;
+    }
 }
