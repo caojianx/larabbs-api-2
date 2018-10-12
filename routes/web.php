@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/','PagesController@root')->name('root');
+Route::get('/','TopicsControlelrr@index')->name('root');
 Auth::routes();
 Route::resource('users','UsersController',['only'=>['show','edit','update']]);
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
