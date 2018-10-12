@@ -21,7 +21,7 @@ return array(
      *
      * @type string
      */
-    'title' => env('APP_NAME','Laravel'),
+    'title' => env('APP_NAME', 'Laravel'),
 
     /*
      * The path to your model config directory
@@ -59,8 +59,10 @@ return array(
      *	)
      */
     'menu' => [
-        '用户与权限'=>[
-          'users',
+        '用户与权限' => [
+            'users',
+            'roles',
+            'permissions',
         ],
     ],
 
@@ -71,7 +73,7 @@ return array(
      * @type closure
      */
     'permission' => function () {
-        return Auth::check()&& Auth::user()->can('manage_contents');
+        return Auth::check() && Auth::user()->can('manage_contents');
     },
 
     /*
