@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Auth;
-
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
+    use HasRoles;
     use Notifiable {
         notify as protected laravelNotify;
     }
@@ -60,4 +61,5 @@ class User extends Authenticatable
         $this->save();
         $this->unreadNotifications->markAsRead();
     }
+
 }
