@@ -17,4 +17,12 @@ class RepliesController extends Controller
         $reply->save();
         return $this->response->item($reply,new ReplyTransformer())->setStatusCode(201);
     }
+    public function destroy(Topic $topic,Reply $reply){
+        if($topic->id!=$reply->topic_id){
+            return $this->response->errorBadRequest();
+        }
+        $this->authorize('destroy',$reply);
+        $reply->delete();
+        return $this->response->noContent();
+    }
 }
