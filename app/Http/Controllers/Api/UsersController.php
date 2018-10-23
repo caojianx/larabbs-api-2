@@ -44,11 +44,16 @@ class UsersController extends Controller
         $user = $this->user();
         $attributes = $request->only(['name', 'email', 'introduction']);
         if ($request->avatar_image_id) {
-            $image=Image::find($request->avatar_image_id);
-            $attributes['avatar']=$image->path;
+            $image = Image::find($request->avatar_image_id);
+            $attributes['avatar'] = $image->path;
         }
         $user->update($attributes);
-        return $this->response->item($user,new UserTransformer());
+        return $this->response->item($user, new UserTransformer());
+    }
+
+    public function activedIndex(User $user)
+    {
+        return $this->response->collection($user->getActiveUsers(),new UserTransformer());
     }
 
     public function me()
